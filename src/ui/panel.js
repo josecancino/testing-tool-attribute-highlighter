@@ -1,7 +1,5 @@
 // src/ui/panel.js
 
-import { CONSTANTS } from "../core/constants.js";
-
 export class Panel {
   constructor(onSelect, onHighlightAll, onSearch) {
     this.onSelect = onSelect;

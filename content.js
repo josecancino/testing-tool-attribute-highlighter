@@ -164,7 +164,7 @@ function createPanel() {
   });
   
   // Click on collapsed panel to expand it
-  panel.addEventListener('click', (e) => {
+  panel.addEventListener('click', () => {
     if (panel.classList.contains('seo-panel-collapsed')) {
       // If collapsed, expand on click anywhere
       togglePanel();
