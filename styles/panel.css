@@ -1,0 +1,282 @@
+  #attribute-tooltip {
+    position: absolute;
+    z-index: 9999;
+    background-color: rgba(20, 20, 20, 0.9);
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    max-width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    pointer-events: none;
+    display: none;
+  }
+  
+  /* Panel lateral */
+  #seo-extension-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  /* Panel colapsado - icono flotante */
+  #seo-extension-panel.seo-panel-collapsed {
+    width: 50px;
+    height: 50px;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed .seo-panel-header {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed .seo-panel-header h3 {
+    display: none;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed .seo-header-left {
+    display: none;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed #seo-panel-toggle {
+    display: none;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed .seo-panel-content {
+    display: none;
+  }
+  
+  /* Icono cuando está colapsado */
+  #seo-extension-panel.seo-panel-collapsed::after {
+    content: '⚙️';
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  
+  #seo-extension-panel.seo-panel-collapsed:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  #seo-extension-panel.seo-panel-expanded {
+    width: 350px;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    border-radius: 0;
+  }
+  
+  .seo-panel-header {
+    background: #2563eb;
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 12px;
+  }
+  
+  .seo-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .seo-panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .seo-search-input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 12px;
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: all 0.2s;
+  }
+  
+  .seo-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .seo-search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .seo-highlight-all-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  
+  .seo-highlight-all-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .seo-highlight-all-btn.active {
+    background: rgba(220, 38, 38, 0.9);
+    border-color: rgba(220, 38, 38, 1);
+  }
+  
+  .seo-highlight-all-btn.active:hover {
+    background: rgba(185, 28, 28, 0.9);
+  }
+  
+  #seo-panel-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  
+  #seo-panel-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .seo-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px;
+    background: #f9fafb;
+    min-height: 0; /* Permite que el flex funcione correctamente con scroll */
+  }
+  
+  #seo-attribute-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .seo-attribute-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  
+  .seo-attribute-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #f9fafb;
+    border-color: #d1d5db;
+  }
+  
+  .seo-attribute-item.seo-item-selected {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+  
+  .seo-attr-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .seo-attr-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f2937;
+    word-break: break-word;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .seo-item-selected .seo-attr-name {
+    color: #92400e;
+    font-weight: 600;
+  }
+  
+  .seo-attr-context {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.4;
+    padding-top: 4px;
+    border-top: 1px solid #f3f4f6;
+    word-break: break-word;
+    font-style: italic;
+  }
+  
+  .seo-item-selected .seo-attr-context {
+    color: #78350f;
+    border-top-color: #fef3c7;
+  }
+  
+  /* Scrollbar styling */
+  .seo-panel-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .seo-panel-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .seo-panel-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  
+  .seo-panel-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  

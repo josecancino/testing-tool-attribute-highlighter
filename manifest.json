@@ -1,20 +1,41 @@
 {
   "manifest_version": 3,
-  "name": "Attribute Highlighter Jove",
-  "version": "1.1",
-  "description": "Highlights configurable data-* attributes.",
-  "permissions": ["storage", "scripting"],
-  "host_permissions": ["<all_urls>"],
+  "name": "Testing Tool - Attribute Highlighter",
+  "version": "1.0",
+  "description": "Highlight attributes for Testing analysis",
+  
+  "permissions": ["storage"],
+
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "Attribute Highlighter"
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
-      "css": ["styles.css"],
+      "css": ["styles/theme.css", "styles/panel.css"],
       "run_at": "document_idle"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/content/contentEntry.js",
+        "src/ui/panel.js",
+        "src/state/state.js",
+        "src/core/position.js",
+        "src/core/elementContextInfo.js",
+        "src/core/panelChanges.js",
+        "styles/*.css"
+      ],
+      "matches": ["<all_urls>"]
     }
   ]
 }

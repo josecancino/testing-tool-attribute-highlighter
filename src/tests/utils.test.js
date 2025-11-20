@@ -2,7 +2,7 @@ import {
   getElementContextInfo,
   sortElementsByPosition,
   hasPanelChanges,
-} from './utils.js';
+} from '../utils.js';
 
 describe('getElementContextInfo', () => {
   let container;

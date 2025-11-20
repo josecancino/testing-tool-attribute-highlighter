@@ -1,0 +1,25 @@
+<!-- popup/popup.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Attribute Highlighter</title>
+    <link rel="stylesheet" href="../styles/popup.css" />
+    <link rel="stylesheet" href="../styles/theme.css" />
+    <link rel="stylesheet" href="../styles/panel.css" />
+  </head>
+  <body>
+    <h3 class="popup-title">Attribute Highlighter</h3>
+
+    <label class="popup-label" for="attrInput">Attribute:</label>
+    <input id="attrInput" class="popup-input" type="text" placeholder="testid, qa, atm..." />
+
+    <button id="toggleBtn" class="popup-button">Enable</button>
+
+    <p class="popup-helper">
+      Example: typing <b>testid</b> will search for <b>data-testid</b>
+    </p>
+
+    <script src="../popup.js"></script>
+  </body>
+</html>

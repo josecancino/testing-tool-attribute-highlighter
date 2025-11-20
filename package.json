@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src content.js popup.js",
+    "format": "prettier --write \"**/*.{js,json,md,css,html}\""
   },
   "keywords": [
     "chrome-extension",

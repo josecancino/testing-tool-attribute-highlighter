@@ -1,0 +1,14 @@
+:root {
+    --seo-color-primary: #2563eb;
+    --seo-color-primary-dark: #1d4ed8;
+    --seo-color-highlight: #f59e0b;
+    --seo-color-highlight-bg: #fef3c7;
+    --seo-color-bg: #ffffff;
+    --seo-color-border: #e5e7eb;
+    --seo-radius-md: 8px;
+    --seo-shadow-md: 0 10px 30px rgba(15, 23, 42, 0.18);
+    --seo-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --seo-font-size-sm: 12px;
+    --seo-font-size-md: 14px;
+  }
+  
