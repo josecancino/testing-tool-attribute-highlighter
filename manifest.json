@@ -3,7 +3,7 @@
   "name": "Attribute Highlighter Jove",
   "version": "1.0",
   "description": "Resalta y muestra data-attributes al pasar el mouse sobre elementos.",
-  "permissions": ["scripting"],
+  "permissions": ["scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
