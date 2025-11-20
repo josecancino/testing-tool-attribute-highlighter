@@ -10,15 +10,9 @@ export function sortElementsByPosition(entries) {
 
     if (!elA || !elB) return 0;
 
-    // JSDOM no calcula layout → para tests usamos style.*
-    const rectA = {
-      top: parseInt(elA.style.top || '0', 10),
-      left: parseInt(elA.style.left || '0', 10),
-    };
-    const rectB = {
-      top: parseInt(elB.style.top || '0', 10),
-      left: parseInt(elB.style.left || '0', 10),
-    };
+    // Use rendered positions; fall back to inline styles in non-layout environments (e.g., JSDOM)
+    const rectA = getElementPosition(elA);
+    const rectB = getElementPosition(elB);
 
     const topDiff = rectA.top - rectB.top;
 
@@ -28,4 +22,20 @@ export function sortElementsByPosition(entries) {
 
     return rectA.left - rectB.left;
   });
+}
+
+function getElementPosition(el) {
+  const rect = typeof el.getBoundingClientRect === 'function' ? el.getBoundingClientRect() : { top: 0, left: 0 };
+  let top = rect?.top ?? 0;
+  let left = rect?.left ?? 0;
+
+  // Fallback for test environments where layout is not computed
+  if ((top === 0 && left === 0)) {
+    const styleTop = parseInt(el.style.top || '', 10);
+    const styleLeft = parseInt(el.style.left || '', 10);
+    if (!Number.isNaN(styleTop)) top = styleTop;
+    if (!Number.isNaN(styleLeft)) left = styleLeft;
+  }
+
+  return { top, left };
 }
