@@ -1,0 +1,13 @@
+#attribute-tooltip {
+  position: absolute;
+  z-index: 9999;
+  background-color: rgba(20, 20, 20, 0.9);
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  max-width: 300px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  pointer-events: none;
+  display: none;
+}
