@@ -29,17 +29,17 @@ export class Panel {
   template() {
     return `
       <div class="seo-panel-header">
-        <div id="seo-panel-title">Attribute Highlighter</div>
-        <button id="seo-panel-toggle" class="seo-panel-toggle">⤢</button>
-      </div>
-
-      <div class="seo-panel-body">
-        <input id="seo-search-input" class="seo-search-input" placeholder="Search attribute value..." />
-
+        <div class="seo-header-left">
+          <h3 id="seo-panel-title">Attribute Highlighter</h3>
+          <input id="seo-search-input" class="seo-search-input" placeholder="Search attribute value..." />
+        </div>
         <button id="seo-highlight-all-btn" class="seo-highlight-all-btn">
           Highlight All
         </button>
+        <button id="seo-panel-toggle" class="seo-panel-toggle">⤢</button>
+      </div>
 
+      <div class="seo-panel-content">
         <div id="seo-attribute-list" class="seo-attribute-list"></div>
       </div>
     `;

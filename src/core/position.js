@@ -10,12 +10,10 @@ export function sortElementsByPosition(entries) {
 
     if (!elA || !elB) return 0;
 
-    // Use rendered positions; fall back to inline styles in non-layout environments (e.g., JSDOM)
     const rectA = getElementPosition(elA);
     const rectB = getElementPosition(elB);
 
     const topDiff = rectA.top - rectB.top;
-
     if (Math.abs(topDiff) > threshold) {
       return topDiff;
     }
