@@ -105,6 +105,56 @@ describe('ExtensionState', () => {
     expect(extensionState.selectedElements).toEqual([]);
     expect(extensionState.isAllHighlighted).toBe(false);
   });
+
+  test('clearAllElements should clear tracked collections and reset flags', () => {
+    const el = document.createElement('div');
+    extensionState.isAllHighlighted = true;
+    extensionState.allElements = [el];
+    extensionState.allGroups = [["value", [el]]];
+    extensionState.saveOriginalStyles(extensionState.allOriginalStyles, [el]);
+
+    extensionState.clearAllElements();
+
+    expect(extensionState.allElements).toEqual([]);
+    expect(extensionState.allGroups).toEqual([]);
+    expect(extensionState.allOriginalStyles.size).toBe(0);
+    expect(extensionState.isAllHighlighted).toBe(false);
+  });
+
+  test('saveOriginalStyles should ignore non-iterable inputs', () => {
+    const map = new Map();
+    expect(() => extensionState.saveOriginalStyles(map, null)).not.toThrow();
+    expect(() => extensionState.saveOriginalStyles(map, 123)).not.toThrow();
+    expect(() => extensionState.saveOriginalStyles(map, { a: 1 })).not.toThrow();
+    expect(map.size).toBe(0);
+  });
+
+  test('saveOriginalStyles should handle NodeList and Arrays', () => {
+    const container = document.createElement('div');
+    const el1 = document.createElement('div');
+    const el2 = document.createElement('div');
+    el1.style.outline = '1px solid #000';
+    el1.style.background = '#fff';
+    el2.style.outline = '2px solid #111';
+    el2.style.background = '#eee';
+    container.appendChild(el1);
+    container.appendChild(el2);
+    document.body.appendChild(container);
+
+    const nodeList = container.querySelectorAll('div');
+    const map = new Map();
+
+    extensionState.saveOriginalStyles(map, nodeList);
+    expect(map.size).toBe(2);
+    expect(map.has(el1)).toBe(true);
+    expect(map.has(el2)).toBe(true);
+
+    const map2 = new Map();
+    extensionState.saveOriginalStyles(map2, [el1, el2]);
+    expect(map2.size).toBe(2);
+
+    document.body.removeChild(container);
+  });
 });
 
 describe('state singleton', () => {
