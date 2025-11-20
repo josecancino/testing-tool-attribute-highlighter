@@ -60,20 +60,14 @@ export class ExtensionState {
     }
   }
   clearSelectedHighlights() {
-    for (const [el, styles] of this.selectedOriginalStyles) {
-      if (!el || !el.style) continue;
-      Object.assign(el.style, styles);
-    }
+    this.restoreStyles(this.selectedOriginalStyles);
     this.selectedOriginalStyles.clear();
     this.selectedElements = [];
     this.selectedItem = null;
   }
 
   clearAllHighlights() {
-    for (const [el, styles] of this.allOriginalStyles) {
-      if (!el || !el.style) continue;
-      Object.assign(el.style, styles);
-    }
+    this.restoreStyles(this.allOriginalStyles);
     this.allOriginalStyles.clear();
     this.isAllHighlighted = false;
   }
@@ -86,19 +80,21 @@ export class ExtensionState {
   }
 
   cleanupHighlights() {
-    for (const [el, styles] of this.allOriginalStyles) {
-      if (!el || !el.style) continue;
-      Object.assign(el.style, styles);
-    }
-    for (const [el, styles] of this.selectedOriginalStyles) {
-      if (!el || !el.style) continue;
-      Object.assign(el.style, styles);
-    }
+    this.restoreStyles(this.allOriginalStyles);
+    this.restoreStyles(this.selectedOriginalStyles);
     this.allOriginalStyles.clear();
     this.selectedOriginalStyles.clear();
     this.allElements = [];
     this.selectedElements = [];
     this.isAllHighlighted = false;
+  }
+
+  restoreStyles(map) {
+    if (!map) return;
+    for (const [el, styles] of map) {
+      if (!el || !el.style) continue;
+      Object.assign(el.style, styles);
+    }
   }
 }
 
