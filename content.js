@@ -3,7 +3,7 @@ let enabled = false;
 let panelVisible = true;
 
 // Debug helper - visible in the page console
-console.log("🔵 Content script loaded - SEO Extension");
+console.log("🔵 Content script loaded - Extension");
 console.log("📍 Current URL:", window.location.href);
 
 // Observe DOM changes to update the list
@@ -502,7 +502,7 @@ document.addEventListener('mouseout', () => {
 
 // Función de debug global
 window.debugSEOExtension = function() {
-  console.log("🔍 SEO Extension Debug Info:");
+  console.log("🔍 Extension Debug Info:");
   console.log("  - Enabled:", enabled);
   console.log("  - Current Attribute:", currentAttribute);
   console.log("  - Panel visible:", panelVisible);
