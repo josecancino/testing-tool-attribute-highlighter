@@ -19,4 +19,12 @@ export default [
       globals: { ...globals.jest, ...globals.browser },
     },
   },
+  {
+    files: ["scripts/**/*.js", "*.config.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: { ...globals.node },
+    },
+  },
 ];
