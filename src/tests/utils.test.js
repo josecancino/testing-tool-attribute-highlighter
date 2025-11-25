@@ -1,8 +1,6 @@
-import {
-  getElementContextInfo,
-  sortElementsByPosition,
-  hasPanelChanges,
-} from '../utils.js';
+import { getElementContextInfo } from '../core/elementContextInfo.js';
+import { sortElementsByPosition } from '../core/position.js';
+import { hasPanelChanges } from '../core/panelChanges.js';
 
 describe('getElementContextInfo', () => {
   let container;
@@ -219,4 +217,3 @@ describe('hasPanelChanges', () => {
     expect(hasPanelChanges(mutations, panel)).toBe(true);
   });
 });
-
