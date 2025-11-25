@@ -199,14 +199,7 @@ function toggleAllHighlight() {
   if (isAllHighlighted) {
     // Remove highlight from all
     allElements.forEach(el => {
-      const styles = allOriginalStyles.get(el);
-      if (styles) {
-        el.style.outline = styles.outline || '';
-        el.style.backgroundColor = styles.backgroundColor || '';
-      } else {
-        el.style.outline = '';
-        el.style.backgroundColor = '';
-      }
+      el.classList.remove('ah-highlight-all');
     });
     isAllHighlighted = false;
     const btn = document.getElementById('ah-highlight-all-btn');
@@ -218,15 +211,7 @@ function toggleAllHighlight() {
   } else {
     // Add highlight to all
     allElements.forEach(el => {
-      // Save original styles only if not already saved
-      if (!allOriginalStyles.has(el)) {
-        allOriginalStyles.set(el, {
-          outline: el.style.outline || '',
-          backgroundColor: el.style.backgroundColor || ''
-        });
-      }
-      el.style.outline = '3px solid #2563eb';
-      el.style.backgroundColor = '#dbeafe';
+      el.classList.add('ah-highlight-all');
     });
     isAllHighlighted = true;
     const btn2 = document.getElementById('ah-highlight-all-btn');
@@ -296,8 +281,13 @@ function scanAndDisplayAttributes() {
   
   // Store all found elements
   allElements = Array.from(elements);
-  allOriginalStyles.clear(); // Clear saved styles
-  isAllHighlighted = false; // Reset state
+  allOriginalStyles.clear(); // Legacy map no longer required for class-based highlight
+  // Preserve global highlight state; if active, reapply to new elements
+  if (isAllHighlighted) {
+    allElements.forEach(el => {
+      el.classList.add('ah-highlight-all');
+    });
+  }
   
   // Clear individual selection on update
   deselectItem();
@@ -305,8 +295,15 @@ function scanAndDisplayAttributes() {
   // Update highlight button
   const highlightAllBtn = document.getElementById('ah-highlight-all-btn');
   if (highlightAllBtn) {
-    highlightAllBtn.textContent = 'Highlight All';
-    highlightAllBtn.classList.remove('active');
+    if (isAllHighlighted) {
+      highlightAllBtn.textContent = 'Unhighlight All';
+      highlightAllBtn.classList.add('active');
+      highlightAllBtn.setAttribute('aria-pressed', 'true');
+    } else {
+      highlightAllBtn.textContent = 'Highlight All';
+      highlightAllBtn.classList.remove('active');
+      highlightAllBtn.setAttribute('aria-pressed', 'false');
+    }
   }
   
   // Clear search input
@@ -437,15 +434,8 @@ function selectItem(item, elements) {
   
   // Highlight elements on the page with different color (yellow/orange)
   elements.forEach((el, index) => {
-    // Save original styles
-    selectedOriginalStyles.set(el, {
-      outline: el.style.outline || '',
-      backgroundColor: el.style.backgroundColor || ''
-    });
-    
-    // Apply special highlight (yellow/orange)
-    el.style.outline = '3px solid #f59e0b'; // Yellow/orange
-    el.style.backgroundColor = '#fef3c7'; // Light yellow
+    // Apply special highlight via class
+    el.classList.add('ah-highlight-selected');
     
     // Scroll to first element
     if (index === 0) {
@@ -461,14 +451,7 @@ function deselectItem() {
   
   // Remove highlight from elements
   selectedElements.forEach(el => {
-    const styles = selectedOriginalStyles.get(el);
-    if (styles) {
-      el.style.outline = styles.outline || '';
-      el.style.backgroundColor = styles.backgroundColor || '';
-    } else {
-      el.style.outline = '';
-      el.style.backgroundColor = '';
-    }
+    el.classList.remove('ah-highlight-selected');
   });
   
   // Remove selection class from item
