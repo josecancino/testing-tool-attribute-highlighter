@@ -35,6 +35,8 @@ export class Panel {
     this.panel = document.createElement("div");
     this.panel.id = "ah-panel";
     this.panel.className = "ah-panel ah-panel-expanded";
+    this.panel.setAttribute('role', 'complementary');
+    this.panel.setAttribute('aria-label', 'Attribute Highlighter Panel');
     this.panel.innerHTML = this.template();
 
     document.body.appendChild(this.panel);
@@ -55,12 +57,12 @@ export class Panel {
       <div class="ah-panel-header">
         <div class="ah-header-left">
           <h3 id="ah-panel-title">Attribute Highlighter</h3>
-          <input id="ah-search-input" class="ah-search-input" placeholder="Search attribute value..." />
+          <input id="ah-search-input" class="ah-search-input" placeholder="Search attribute value..." aria-label="Search attribute value" />
         </div>
-        <button id="ah-highlight-all-btn" class="ah-highlight-all-btn">
+        <button id="ah-highlight-all-btn" class="ah-highlight-all-btn" aria-label="Highlight all matched elements" aria-pressed="false">
           Highlight All
         </button>
-        <button id="ah-panel-toggle" class="ah-panel-toggle">⤢</button>
+        <button id="ah-panel-toggle" class="ah-panel-toggle" aria-label="Toggle panel" aria-expanded="true">⤢</button>
       </div>
 
       <div class="ah-panel-content">
@@ -78,8 +80,20 @@ export class Panel {
     const highlightAllBtn = this.panel.querySelector("#ah-highlight-all-btn");
 
     toggleBtn.addEventListener("click", () => this.toggle());
+    toggleBtn.addEventListener("keydown", (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggle();
+      }
+    });
     searchInput.addEventListener("input", (e) => this.onSearch(e.target.value));
     highlightAllBtn.addEventListener("click", () => this.onHighlightAll());
+    highlightAllBtn.addEventListener("keydown", (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.onHighlightAll();
+      }
+    });
   }
 
   /**
@@ -91,9 +105,13 @@ export class Panel {
     if (collapsed) {
       this.panel.classList.remove("ah-panel-collapsed");
       this.panel.classList.add("ah-panel-expanded");
+      const toggleEl = this.panel.querySelector('#ah-panel-toggle');
+      if (toggleEl) toggleEl.setAttribute('aria-expanded', 'true');
     } else {
       this.panel.classList.remove("ah-panel-expanded");
       this.panel.classList.add("ah-panel-collapsed");
+      const toggleEl = this.panel.querySelector('#ah-panel-toggle');
+      if (toggleEl) toggleEl.setAttribute('aria-expanded', 'false');
     }
   }
 
@@ -107,8 +125,17 @@ export class Panel {
     for (const [value, elList] of entries) {
       const div = document.createElement("div");
       div.className = "ah-attribute-item";
+      div.setAttribute('role', 'button');
+      div.setAttribute('tabindex', '0');
+      div.setAttribute('aria-label', `data attribute: ${value}`);
       div.textContent = `${value} (${elList.length})`;
       div.addEventListener("click", () => this.onSelect(value));
+      div.addEventListener("keydown", (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.onSelect(value);
+        }
+      });
       this.attributeList.appendChild(div);
     }
   }

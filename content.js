@@ -209,8 +209,12 @@ function toggleAllHighlight() {
       }
     });
     isAllHighlighted = false;
-    document.getElementById('seo-highlight-all-btn').textContent = 'Highlight All';
-    document.getElementById('seo-highlight-all-btn').classList.remove('active');
+    const btn = document.getElementById('ah-highlight-all-btn');
+    if (btn) {
+      btn.textContent = 'Highlight All';
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    }
   } else {
     // Add highlight to all
     allElements.forEach(el => {
@@ -225,8 +229,12 @@ function toggleAllHighlight() {
       el.style.backgroundColor = '#dbeafe';
     });
     isAllHighlighted = true;
-    document.getElementById('seo-highlight-all-btn').textContent = 'Unhighlight All';
-    document.getElementById('seo-highlight-all-btn').classList.add('active');
+    const btn2 = document.getElementById('ah-highlight-all-btn');
+    if (btn2) {
+      btn2.textContent = 'Unhighlight All';
+      btn2.classList.add('active');
+      btn2.setAttribute('aria-pressed', 'true');
+    }
   }
 }
 
@@ -351,6 +359,9 @@ function scanAndDisplayAttributes() {
     const firstElement = elements[0];
     const item = document.createElement('div');
     item.className = 'ah-attribute-item';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', `${attrName}: ${value || '(empty)'}`);
     
     // Get contextual information from the element
     const contextInfo = getElementContextInfo(firstElement);
@@ -383,6 +394,14 @@ function scanAndDisplayAttributes() {
       selectItem(item, elements);
     });
     
+    // Keyboard activation
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+
     attributeList.appendChild(item);
     allAttributeItems.push(item);
   });
