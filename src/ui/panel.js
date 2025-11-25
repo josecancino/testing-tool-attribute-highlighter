@@ -1,6 +1,22 @@
 // src/ui/panel.js
-
+/**
+ * Side Panel UI for Attribute Highlighter.
+ * Encapsulates DOM structure and events for the floating panel used to list and interact
+ * with attribute groups found in the page. Designed to be framework‑free and easily testable.
+ *
+ * Callbacks are injected to avoid coupling with content logic:
+ *  - onSelect(value): select a group by its attribute value
+ *  - onHighlightAll(): toggle highlight on all matched elements
+ *  - onSearch(text): filter groups by text
+ *
+ * @class Panel
+ */
 export class Panel {
+  /**
+   * @param {(value: string) => void} onSelect - Callback for group selection.
+   * @param {() => void} onHighlightAll - Callback to toggle highlight on all.
+   * @param {(text: string) => void} onSearch - Callback for search filtering.
+   */
   constructor(onSelect, onHighlightAll, onSearch) {
     this.onSelect = onSelect;
     this.onHighlightAll = onHighlightAll;
@@ -9,8 +25,12 @@ export class Panel {
     this.attributeList = null;
   }
 
+  /**
+   * Mounts the panel into the document if not already present.
+   * Creates the root element, injects HTML, appends to `document.body`, and wires events.
+   */
   mount() {
-    if (document.getElementById("seo-extension-panel")) return;
+    if (document.getElementById("ah-panel")) return;
 
     this.panel = document.createElement("div");
     this.panel.id = "ah-panel";
@@ -20,16 +40,20 @@ export class Panel {
     document.body.appendChild(this.panel);
 
     this.attributeList = this.panel.querySelector(
-      "#seo-attribute-list"
+      "#ah-attribute-list"
     );
 
     this.setupEvents();
   }
 
+  /**
+   * Returns HTML template for the panel.
+   * @returns {string}
+   */
   template() {
     return `
-      <div class="seo-panel-header">
-        <div class="seo-header-left">
+      <div class="ah-panel-header">
+        <div class="ah-header-left">
           <h3 id="ah-panel-title">Attribute Highlighter</h3>
           <input id="ah-search-input" class="ah-search-input" placeholder="Search attribute value..." />
         </div>
@@ -39,12 +63,15 @@ export class Panel {
         <button id="ah-panel-toggle" class="ah-panel-toggle">⤢</button>
       </div>
 
-      <div class="seo-panel-content">
+      <div class="ah-panel-content">
         <div id="ah-attribute-list" class="ah-attribute-list"></div>
       </div>
     `;
   }
 
+  /**
+   * Wires panel events: toggle collapse/expand, search input, and highlight‑all.
+   */
   setupEvents() {
     const toggleBtn = this.panel.querySelector("#ah-panel-toggle");
     const searchInput = this.panel.querySelector("#ah-search-input");
@@ -55,6 +82,9 @@ export class Panel {
     highlightAllBtn.addEventListener("click", () => this.onHighlightAll());
   }
 
+  /**
+   * Toggles the panel collapsed/expanded state by swapping CSS classes.
+   */
   toggle() {
     const collapsed = this.panel.classList.contains("ah-panel-collapsed");
 
@@ -67,6 +97,10 @@ export class Panel {
     }
   }
 
+  /**
+   * Renders the list of attribute groups.
+   * @param {Array<[string, HTMLElement[]]>} entries - Tuples [value, elementList].
+   */
   renderAttributes(entries) {
     this.attributeList.innerHTML = "";
 
@@ -79,6 +113,10 @@ export class Panel {
     }
   }
 
+  /**
+   * Renders contextual info into the panel header title.
+   * @param {string} text - Context summary to display.
+   */
   renderInfo(text) {
     const title = this.panel.querySelector("#ah-panel-title");
     title.textContent = text || "Attribute Highlighter";
