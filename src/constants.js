@@ -49,10 +49,10 @@ export const CONSTANTS = {
  * CSS class names used in the extension
  */
 export const CLASS_NAMES = {
-  PANEL: 'seo-extension-panel',
-  PANEL_COLLAPSED: 'seo-panel-collapsed',
-  PANEL_EXPANDED: 'seo-panel-expanded',
-  ITEM_SELECTED: 'seo-item-selected',
+  PANEL: 'ah-panel',
+  PANEL_COLLAPSED: 'ah-panel-collapsed',
+  PANEL_EXPANDED: 'ah-panel-expanded',
+  ITEM_SELECTED: 'ah-item-selected',
   HIGHLIGHT_ACTIVE: 'active',
 };
 
@@ -60,11 +60,10 @@ export const CLASS_NAMES = {
  * Element IDs used in the extension
  */
 export const ELEMENT_IDS = {
-  PANEL: 'seo-extension-panel',
-  PANEL_TITLE: 'seo-panel-title',
-  PANEL_TOGGLE: 'seo-panel-toggle',
-  SEARCH_INPUT: 'seo-search-input',
-  HIGHLIGHT_ALL_BTN: 'seo-highlight-all-btn',
-  ATTRIBUTE_LIST: 'seo-attribute-list',
+  PANEL: 'ah-panel',
+  PANEL_TITLE: 'ah-panel-title',
+  PANEL_TOGGLE: 'ah-panel-toggle',
+  SEARCH_INPUT: 'ah-search-input',
+  HIGHLIGHT_ALL_BTN: 'ah-highlight-all-btn',
+  ATTRIBUTE_LIST: 'ah-attribute-list',
 };
-

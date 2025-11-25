@@ -13,7 +13,7 @@
   }
   
   /* Panel lateral */
-  #seo-extension-panel {
+  #ah-panel {
     position: fixed;
     top: 0;
     right: 0;
@@ -30,7 +30,7 @@
   }
   
   /* Panel colapsado - icono flotante */
-  #seo-extension-panel.seo-panel-collapsed {
+  #ah-panel.ah-panel-collapsed {
     width: 50px;
     height: 50px;
     top: auto;
@@ -41,7 +41,7 @@
     cursor: pointer;
   }
   
-  #seo-extension-panel.seo-panel-collapsed .seo-panel-header {
+  #ah-panel.ah-panel-collapsed .ah-panel-header {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -52,24 +52,24 @@
     background: #2563eb;
   }
   
-  #seo-extension-panel.seo-panel-collapsed .seo-panel-header h3 {
+  #ah-panel.ah-panel-collapsed .ah-panel-header h3 {
     display: none;
   }
   
-  #seo-extension-panel.seo-panel-collapsed .seo-header-left {
+  #ah-panel.ah-panel-collapsed .ah-header-left {
     display: none;
   }
   
-  #seo-extension-panel.seo-panel-collapsed #seo-panel-toggle {
+  #ah-panel.ah-panel-collapsed #ah-panel-toggle {
     display: none;
   }
   
-  #seo-extension-panel.seo-panel-collapsed .seo-panel-content {
+  #ah-panel.ah-panel-collapsed .ah-panel-content {
     display: none;
   }
   
   /* Icono cuando está colapsado */
-  #seo-extension-panel.seo-panel-collapsed::after {
+  #ah-panel.ah-panel-collapsed::after {
     content: '⚙️';
     font-size: 24px;
     position: absolute;
@@ -79,12 +79,12 @@
     pointer-events: none;
   }
   
-  #seo-extension-panel.seo-panel-collapsed:hover {
+  #ah-panel.ah-panel-collapsed:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   }
   
-  #seo-extension-panel.seo-panel-expanded {
+  #ah-panel.ah-panel-expanded {
     width: 350px;
     height: 100vh;
     top: 0;
@@ -93,7 +93,7 @@
     border-radius: 0;
   }
   
-  .seo-panel-header {
+  .ah-panel-header {
     background: #2563eb;
     color: white;
     padding: 16px;
@@ -104,7 +104,7 @@
     gap: 12px;
   }
   
-  .seo-header-left {
+  .ah-header-left {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -112,7 +112,7 @@
     min-width: 0;
   }
   
-  .seo-panel-header h3 {
+  .ah-panel-header h3 {
     margin: 0;
     font-size: 16px;
     font-weight: 600;
@@ -121,7 +121,7 @@
     text-overflow: ellipsis;
   }
   
-  .seo-search-input {
+  .ah-search-input {
     width: 100%;
     padding: 6px 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -133,17 +133,17 @@
     transition: all 0.2s;
   }
   
-  .seo-search-input::placeholder {
+  .ah-search-input::placeholder {
     color: rgba(255, 255, 255, 0.7);
   }
   
-  .seo-search-input:focus {
+  .ah-search-input:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
   }
   
-  .seo-highlight-all-btn {
+  .ah-highlight-all-btn {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
@@ -156,21 +156,21 @@
     white-space: nowrap;
   }
   
-  .seo-highlight-all-btn:hover {
+  .ah-highlight-all-btn:hover {
     background: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.5);
   }
   
-  .seo-highlight-all-btn.active {
+  .ah-highlight-all-btn.active {
     background: rgba(220, 38, 38, 0.9);
     border-color: rgba(220, 38, 38, 1);
   }
   
-  .seo-highlight-all-btn.active:hover {
+  .ah-highlight-all-btn.active:hover {
     background: rgba(185, 28, 28, 0.9);
   }
   
-  #seo-panel-toggle {
+  #ah-panel-toggle {
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
@@ -185,11 +185,11 @@
     transition: background 0.2s;
   }
   
-  #seo-panel-toggle:hover {
+  #ah-panel-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
   }
   
-  .seo-panel-content {
+  .ah-panel-content {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -198,13 +198,13 @@
     min-height: 0; /* Permite que el flex funcione correctamente con scroll */
   }
   
-  #seo-attribute-list {
+  #ah-attribute-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   
-  .seo-attribute-item {
+  .ah-attribute-item {
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
@@ -215,25 +215,25 @@
     transition: all 0.2s;
   }
   
-  .seo-attribute-item:hover {
+  .ah-attribute-item:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background: #f9fafb;
     border-color: #d1d5db;
   }
   
-  .seo-attribute-item.seo-item-selected {
+  .ah-attribute-item.ah-item-selected {
     background: #fef3c7;
     border: 2px solid #f59e0b;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
   }
   
-  .seo-attr-header {
+  .ah-attr-header {
     display: flex;
     align-items: center;
     width: 100%;
   }
   
-  .seo-attr-name {
+  .ah-attr-name {
     font-size: 13px;
     font-weight: 500;
     color: #1f2937;
@@ -242,12 +242,12 @@
     min-width: 0;
   }
   
-  .seo-item-selected .seo-attr-name {
+  .ah-item-selected .ah-attr-name {
     color: #92400e;
     font-weight: 600;
   }
   
-  .seo-attr-context {
+  .ah-attr-context {
     font-size: 11px;
     color: #6b7280;
     line-height: 1.4;
@@ -257,26 +257,26 @@
     font-style: italic;
   }
   
-  .seo-item-selected .seo-attr-context {
+  .ah-item-selected .ah-attr-context {
     color: #78350f;
     border-top-color: #fef3c7;
   }
   
   /* Scrollbar styling */
-  .seo-panel-content::-webkit-scrollbar {
+  .ah-panel-content::-webkit-scrollbar {
     width: 8px;
   }
   
-  .seo-panel-content::-webkit-scrollbar-track {
+  .ah-panel-content::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
   
-  .seo-panel-content::-webkit-scrollbar-thumb {
+  .ah-panel-content::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 4px;
   }
   
-  .seo-panel-content::-webkit-scrollbar-thumb:hover {
+  .ah-panel-content::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
   }
   

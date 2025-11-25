@@ -124,23 +124,23 @@ function createPanel() {
   if (panel) return; // Already exists
   
   panel = document.createElement('div');
-  panel.id = 'seo-extension-panel';
+  panel.id = 'ah-panel';
   panel.innerHTML = `
-    <div class="seo-panel-header">
-      <div class="seo-header-left">
-        <h3 id="seo-panel-title">Found 0 attributes</h3>
-        <input type="text" id="seo-search-input" class="seo-search-input" placeholder="Search attributes..." />
-        <button id="seo-highlight-all-btn" class="seo-highlight-all-btn" title="Highlight all elements">Highlight All</button>
+    <div class="ah-panel-header">
+      <div class="ah-header-left">
+        <h3 id="ah-panel-title">Found 0 attributes</h3>
+        <input type="text" id="ah-search-input" class="ah-search-input" placeholder="Search attributes..." />
+        <button id="ah-highlight-all-btn" class="ah-highlight-all-btn" title="Highlight all elements">Highlight All</button>
       </div>
-      <button id="seo-panel-toggle" title="Minimize panel">−</button>
+      <button id="ah-panel-toggle" title="Minimize panel">−</button>
     </div>
-    <div class="seo-panel-content">
-      <div id="seo-attribute-list"></div>
+    <div class="ah-panel-content">
+      <div id="ah-attribute-list"></div>
     </div>
   `;
   
   document.body.appendChild(panel);
-  attributeList = document.getElementById('seo-attribute-list');
+  attributeList = document.getElementById('ah-attribute-list');
   
   // Function to toggle the panel
   function togglePanel() {
@@ -148,44 +148,44 @@ function createPanel() {
     
     if (panelVisible) {
       // Expand panel
-      panel.classList.remove('seo-panel-collapsed');
-      panel.classList.add('seo-panel-expanded');
+      panel.classList.remove('ah-panel-collapsed');
+      panel.classList.add('ah-panel-expanded');
     } else {
       // Collapse to small icon
-      panel.classList.remove('seo-panel-expanded');
-      panel.classList.add('seo-panel-collapsed');
+      panel.classList.remove('ah-panel-expanded');
+      panel.classList.add('ah-panel-collapsed');
     }
   }
   
   // Toggle button - minimize to floating icon
-  document.getElementById('seo-panel-toggle').addEventListener('click', (e) => {
+  document.getElementById('ah-panel-toggle').addEventListener('click', (e) => {
     e.stopPropagation(); // Prevent propagation to panel
     togglePanel();
   });
   
   // Click on collapsed panel to expand it
   panel.addEventListener('click', () => {
-    if (panel.classList.contains('seo-panel-collapsed')) {
+    if (panel.classList.contains('ah-panel-collapsed')) {
       // If collapsed, expand on click anywhere
       togglePanel();
     }
   });
   
   // Button to highlight/unhighlight all
-  const highlightAllBtn = document.getElementById('seo-highlight-all-btn');
+  const highlightAllBtn = document.getElementById('ah-highlight-all-btn');
   highlightAllBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleAllHighlight();
   });
   
   // Search input filter
-  const searchInput = document.getElementById('seo-search-input');
+  const searchInput = document.getElementById('ah-search-input');
   searchInput.addEventListener('input', (e) => {
     filterAttributeList(e.target.value.toLowerCase());
   });
   
   // Initialize as expanded
-  panel.classList.add('seo-panel-expanded');
+  panel.classList.add('ah-panel-expanded');
   
   console.log("✅ Panel created");
 }
@@ -263,7 +263,7 @@ function scanAndDisplayAttributes() {
   
   const attrName = `data-${currentAttribute}`;
   const elements = document.querySelectorAll(`[${attrName}]`);
-  const title = document.getElementById('seo-panel-title');
+  const title = document.getElementById('ah-panel-title');
   
   if (!title) {
     isScanning = false;
@@ -273,7 +273,7 @@ function scanAndDisplayAttributes() {
   title.textContent = `Found ${elements.length} ${attrName} attributes:`;
   
   if (!attributeList) {
-    attributeList = document.getElementById('seo-attribute-list');
+    attributeList = document.getElementById('ah-attribute-list');
   }
   
   if (!attributeList) {
@@ -295,14 +295,14 @@ function scanAndDisplayAttributes() {
   deselectItem();
   
   // Update highlight button
-  const highlightAllBtn = document.getElementById('seo-highlight-all-btn');
+  const highlightAllBtn = document.getElementById('ah-highlight-all-btn');
   if (highlightAllBtn) {
     highlightAllBtn.textContent = 'Highlight All';
     highlightAllBtn.classList.remove('active');
   }
   
   // Clear search input
-  const searchInput = document.getElementById('seo-search-input');
+  const searchInput = document.getElementById('ah-search-input');
   if (searchInput) {
     searchInput.value = '';
   }
@@ -350,16 +350,16 @@ function scanAndDisplayAttributes() {
   sortedEntries.forEach(([value, elements]) => {
     const firstElement = elements[0];
     const item = document.createElement('div');
-    item.className = 'seo-attribute-item';
+    item.className = 'ah-attribute-item';
     
     // Get contextual information from the element
     const contextInfo = getElementContextInfo(firstElement);
     
     item.innerHTML = `
-      <div class="seo-attr-header">
-        <span class="seo-attr-name">${attrName}: ${value || '(empty)'}</span>
+      <div class="ah-attr-header">
+        <span class="ah-attr-name">${attrName}: ${value || '(empty)'} </span>
       </div>
-      <div class="seo-attr-context">${contextInfo}</div>
+      <div class="ah-attr-context">${contextInfo}</div>
     `;
     
     // Store searchable data
@@ -414,7 +414,7 @@ function selectItem(item, elements) {
   selectedOriginalStyles.clear();
   
   // Highlight the item in the list
-  item.classList.add('seo-item-selected');
+  item.classList.add('ah-item-selected');
   
   // Highlight elements on the page with different color (yellow/orange)
   elements.forEach((el, index) => {
@@ -453,7 +453,7 @@ function deselectItem() {
   });
   
   // Remove selection class from item
-  selectedItem.classList.remove('seo-item-selected');
+  selectedItem.classList.remove('ah-item-selected');
   
   // Clear selection
   selectedItem = null;

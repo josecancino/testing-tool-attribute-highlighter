@@ -13,8 +13,8 @@ export class Panel {
     if (document.getElementById("seo-extension-panel")) return;
 
     this.panel = document.createElement("div");
-    this.panel.id = "seo-extension-panel";
-    this.panel.className = "seo-extension-panel seo-panel-expanded";
+    this.panel.id = "ah-panel";
+    this.panel.className = "ah-panel ah-panel-expanded";
     this.panel.innerHTML = this.template();
 
     document.body.appendChild(this.panel);
@@ -30,25 +30,25 @@ export class Panel {
     return `
       <div class="seo-panel-header">
         <div class="seo-header-left">
-          <h3 id="seo-panel-title">Attribute Highlighter</h3>
-          <input id="seo-search-input" class="seo-search-input" placeholder="Search attribute value..." />
+          <h3 id="ah-panel-title">Attribute Highlighter</h3>
+          <input id="ah-search-input" class="ah-search-input" placeholder="Search attribute value..." />
         </div>
-        <button id="seo-highlight-all-btn" class="seo-highlight-all-btn">
+        <button id="ah-highlight-all-btn" class="ah-highlight-all-btn">
           Highlight All
         </button>
-        <button id="seo-panel-toggle" class="seo-panel-toggle">⤢</button>
+        <button id="ah-panel-toggle" class="ah-panel-toggle">⤢</button>
       </div>
 
       <div class="seo-panel-content">
-        <div id="seo-attribute-list" class="seo-attribute-list"></div>
+        <div id="ah-attribute-list" class="ah-attribute-list"></div>
       </div>
     `;
   }
 
   setupEvents() {
-    const toggleBtn = this.panel.querySelector("#seo-panel-toggle");
-    const searchInput = this.panel.querySelector("#seo-search-input");
-    const highlightAllBtn = this.panel.querySelector("#seo-highlight-all-btn");
+    const toggleBtn = this.panel.querySelector("#ah-panel-toggle");
+    const searchInput = this.panel.querySelector("#ah-search-input");
+    const highlightAllBtn = this.panel.querySelector("#ah-highlight-all-btn");
 
     toggleBtn.addEventListener("click", () => this.toggle());
     searchInput.addEventListener("input", (e) => this.onSearch(e.target.value));
@@ -56,14 +56,14 @@ export class Panel {
   }
 
   toggle() {
-    const collapsed = this.panel.classList.contains("seo-panel-collapsed");
+    const collapsed = this.panel.classList.contains("ah-panel-collapsed");
 
     if (collapsed) {
-      this.panel.classList.remove("seo-panel-collapsed");
-      this.panel.classList.add("seo-panel-expanded");
+      this.panel.classList.remove("ah-panel-collapsed");
+      this.panel.classList.add("ah-panel-expanded");
     } else {
-      this.panel.classList.remove("seo-panel-expanded");
-      this.panel.classList.add("seo-panel-collapsed");
+      this.panel.classList.remove("ah-panel-expanded");
+      this.panel.classList.add("ah-panel-collapsed");
     }
   }
 
@@ -72,7 +72,7 @@ export class Panel {
 
     for (const [value, elList] of entries) {
       const div = document.createElement("div");
-      div.className = "seo-attribute-item";
+      div.className = "ah-attribute-item";
       div.textContent = `${value} (${elList.length})`;
       div.addEventListener("click", () => this.onSelect(value));
       this.attributeList.appendChild(div);
@@ -80,7 +80,7 @@ export class Panel {
   }
 
   renderInfo(text) {
-    const title = this.panel.querySelector("#seo-panel-title");
+    const title = this.panel.querySelector("#ah-panel-title");
     title.textContent = text || "Attribute Highlighter";
   }
 }
