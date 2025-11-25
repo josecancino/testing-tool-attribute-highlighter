@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "js": ["src/content/contentEntry.js"],
       "css": ["styles/theme.css", "styles/panel.css"],
       "run_at": "document_idle"
     }

@@ -6,7 +6,7 @@ import { sortElementsByPosition } from "../core/position.js";
 import { getElementContextInfo } from "../core/elementContextInfo.js";
 import { hasPanelChanges } from "../core/panelChanges.js";
 
-console.log("🔵 SEO Extension (content script) initialized");
+console.log("🔵 Attribute Highlighter (content script) initialized");
 
 // --- Estado ---
 const state = new ExtensionState();
@@ -40,9 +40,9 @@ observer.observe(document.body, {
 //  Startup
 // =========
 
-chrome.storage.sync.get(["enabled", "currentAttribute"], (res) => {
+chrome.storage.sync.get(["enabled", "attribute"], (res) => {
   state.enabled = res.enabled || false;
-  state.currentAttribute = res.currentAttribute || null;
+  state.currentAttribute = res.attribute || null;
 
   if (state.enabled) {
     scanDOM();
@@ -57,8 +57,8 @@ chrome.storage.onChanged.addListener((changes) => {
     if (state.enabled) scanDOM();
   }
 
-  if (changes.currentAttribute) {
-    state.currentAttribute = changes.currentAttribute.newValue;
+  if (changes.attribute) {
+    state.currentAttribute = changes.attribute.newValue;
     scanDOM();
   }
 });
@@ -72,13 +72,16 @@ function scanDOM() {
 
   if (!state.enabled || !state.currentAttribute) return;
 
-  const selector = `[${state.currentAttribute}]`;
+  const attrName = state.currentAttribute.startsWith('data-')
+    ? state.currentAttribute
+    : `data-${state.currentAttribute}`;
+  const selector = `[${attrName}]`;
   const elements = Array.from(document.querySelectorAll(selector));
 
   const groups = new Map();
 
   for (const el of elements) {
-    const value = el.getAttribute(state.currentAttribute) || "(empty)";
+    const value = el.getAttribute(attrName) || "(empty)";
 
     if (!groups.has(value)) groups.set(value, []);
     groups.get(value).push(el);
